@@ -10,6 +10,8 @@ import SeatLayout from './pages/SeatLayout'
 import MyBookings from './pages/MyBookings'
 import Favorites from './pages/Favorites'
 import { Routes, Route,useLocation } from 'react-router-dom'
+import {Toaster} from 'react-hot-toast'
+//Toster is used to show notifications in the app
 
 const App = () => {
 
@@ -18,10 +20,10 @@ const App = () => {
 
   return (
     <>
+      <Toaster/>
+      {/* if we add toaster component here so that we can use our notification feature any where in the page*/}
       {!isAdminRoute && <Navbar />}
-      {
-      // Render Navbar only if not on admin route
-    }
+      {/* Render Navbar only if not on admin route */}
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/movies'elset={<Movies/>}/>
@@ -31,7 +33,7 @@ const App = () => {
         <Route path='/favorites' element={<Favorites/>}/>
         <Route path='*' element={<h1>Page Not Found</h1>}/>
       </Routes>
-      <Footor/>
+      {!isAdminRoute && <Footor/>}
     </>
   )
 }
