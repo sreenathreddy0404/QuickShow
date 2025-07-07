@@ -26,7 +26,7 @@ const App = () => {
       {/* Render Navbar only if not on admin route */}
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/movies'elset={<Movies/>}/>
+        <Route path='/movies' element={<Movies/>}/>
         <Route path='/movies/:id' element={<MovieDetails/>}/>
         <Route path='/movies/:id/:date' element={<SeatLayout/>}/>
         <Route path='/my-bookings' element={<MyBookings/>}/>
