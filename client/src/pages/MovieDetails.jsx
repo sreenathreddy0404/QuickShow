@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { dummyDateTimeData, dummyShowsData } from '../assets/assets';
 import BlurCircle from '../components/BlurCircle';
