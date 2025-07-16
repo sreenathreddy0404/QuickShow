@@ -99,7 +99,7 @@ const Navbar = () => {
 								label="My Bookings"
 								labelIcon={<TicketPlus className="w-4" />}
 								onClick={() => {
-									navigate("/");
+									navigate("/my-bookings");
 								}}
 							/>
 						</UserButton.MenuItems>
