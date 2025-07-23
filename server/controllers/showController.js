@@ -53,7 +53,6 @@ export const addShow = async(req,res)=>{
                 runtime:movieApiData.runtime,
             }
 
-            //Add movie to database
             movie = await Movie.create(movieDetails);
         }
 
