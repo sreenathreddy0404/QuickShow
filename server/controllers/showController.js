@@ -112,6 +112,7 @@ export const getShow = async(req,res)=>{
 
         res.json({success:true,movie,dateTime})
     } catch (error) {
+        console.log(error);
         return res.json({success:false,message:error.message})
     }
 }
