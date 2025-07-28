@@ -20,44 +20,51 @@ export const getUserBookings = async(req,res)=>{
 }
 
 //API Controller function to upate favorite Movie in Clerk User Metadata
-export const updateFavorite = async(req,res)=>{
-    try {
-        const {movieId} = req.body;
-        const {userId} = req.auth().userId;
+// API Controller function to update favorite Movie in Clerk User Metadata
+export const updateFavorite = async (req, res) => {
+	try {
+		const { movieId } = req.body;
+		const { userId } = req.auth();
 
-        const user = await clerkClient.users.getUser(userId)
+		const user = await clerkClient.users.getUser(userId);
 
-        if(!user.privateMetadata.favorites){
-            user.privateMetadata.favorites=[];
-        }else{
-            user.privateMetadata.favorites = user.privateMetadata.favorites.filter(item=>item !== movieId);
-        }
+		// Clone the existing privateMetadata or set a default
+		let favorites = user.privateMetadata.favorites || [];
 
-        if(!user.privateMetadata.favorites.includes(movieId)){
-            user.privateMetadata.favorites.push(movieId);
-        }
+		// Toggle logic: add if not there, remove if already exists
+		if (favorites.includes(movieId)) {
+			favorites = favorites.filter(item => item !== movieId);
+		} else {
+			favorites.push(movieId);
+		}
 
-        await clerkClient.users.updateUserMetadata(userId,{privateMetadata:user.privateMetadata})
+		// Update user metadata (safe and clean)
+		await clerkClient.users.updateUserMetadata(userId, {
+			privateMetadata: {
+				...user.privateMetadata,
+				favorites,
+			},
+		});
 
-        res.json({success:true,message:"Favorite updated Successfully"});
-    } catch (error) {
-        console.error(error.message)
-        res.json({success:false,message:error.message});
-    }
-}
+		res.json({ success: true, message: "Favorite updated successfully" });
+	} catch (error) {
+		console.error("Error in updating favorites:", error.message);
+		res.status(500).json({ success: false, message: error.message });
+	}
+};
+
 
 //get favorite movies
 export const getFavorites = async(req,res)=>{
     try {
         const user = await clerkClient.users.getUser(req.auth().userId)
         const favorites = user.privateMetadata.favorites;
-
         //Getting movies from database
         const movies = await Movie.find({_id:{$in:favorites}})
 
         res.json({success:true,movies});
     } catch (error) {
-        console.error(error.message)
+        console.error("Error in fetching favorites : ",error.message)
         res.json({success:false,message:error.message});
     }
 }

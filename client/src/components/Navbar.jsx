@@ -5,8 +5,10 @@ import {MenuIcon, SearchIcon, TicketPlus, XIcon} from 'lucide-react'
 
 
 import {useClerk, UserButton, useUser} from '@clerk/clerk-react'
+import { useAppContext } from '../context/appContext'
 
 const Navbar = () => {
+  const {favoriteMovies} = useAppContext();
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const {isSignedIn,user,isLoaded} = useUser()
@@ -70,7 +72,7 @@ const Navbar = () => {
 					{" "}
 					Releases{" "}
 				</Link>
-				<Link
+				{favoriteMovies.length>0?<Link
 					onClick={() => {
 						scrollTo(0, 0);
 						setIsOpen(!isOpen);
@@ -79,7 +81,7 @@ const Navbar = () => {
 				>
 					{" "}
 					Favorites{" "}
-				</Link>
+				</Link>:""}
 			</div>
 
 			<div className="flex items-center gap-10">

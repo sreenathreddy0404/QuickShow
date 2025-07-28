@@ -33,7 +33,7 @@ export const AppProvider = ({children})=>{
         } catch (error) {
             console.error(error.message);
         }
-    }
+    } 
 
     const fetchShows = async ()=>{
         try {
@@ -75,7 +75,9 @@ export const AppProvider = ({children})=>{
         }
     },[])
 
-    const value = {axios,fetchIsAdmin,user,getToken,navigate,isAdmin,shows,favoriteMovies,fetchFavoriteMovies};
+    const image_base_url = import.meta.env.VITE_TMDB_BASE_URL;
+
+    const value = {axios,fetchIsAdmin,user,getToken,navigate,isAdmin,shows,favoriteMovies,fetchFavoriteMovies,image_base_url};
     return (
         <AppContext.Provider value={value}>
             {children}

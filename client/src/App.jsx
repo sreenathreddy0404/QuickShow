@@ -16,6 +16,7 @@ import ListShows from './pages/admin/ListShows'
 import ListBookings from './pages/admin/ListBookings'
 import { SignIn } from '@clerk/clerk-react'
 import {useAppContext} from './context/appContext'
+import Loading from './components/Loading'
 //Toster is used to show notifications in the app
 
 const App = () => {
@@ -37,6 +38,8 @@ const App = () => {
         <Route path='/movies/:id' element={<MovieDetails/>}/>
         <Route path='/movies/:id/:date' element={<SeatLayout/>}/>
         <Route path='/my-bookings' element={<MyBookings/>}/>
+        <Route path='/loading/:nextUrl' element={<Loading/>}/>
+
         <Route path='/favorites' element={<Favorites/>}/>
         <Route path='*' element={<h1>Page Not Found</h1>}/>
         <Route path='/admin/*' element={user?<Layout/>:(<div>
